@@ -9,22 +9,12 @@ interface IState{
 class HomeController extends React.Component<any, IState>{
     homeModel: HomeModel
 
-
-    componentDidMount(){
-        setInterval(() => {
-            this.setState({
-                count: this.state.count+1
-            })
-        }, 1000)
-    }
-    updateInfo = () =>{
+    increment = () => {
         this.setState({
-            count:this.state.count+1
+            count: this.state.count+1
         })
     }
-    /**
-     *
-     */
+   
     constructor() {
         super({});
 
@@ -38,7 +28,8 @@ class HomeController extends React.Component<any, IState>{
     render(){
         console.log("Count" + this.state.count);
         return(
-        <HomeView info={this.state.count}/>
+        <HomeView info={this.state.count} increment={this.increment}/>
+        
         )
     }
 }
