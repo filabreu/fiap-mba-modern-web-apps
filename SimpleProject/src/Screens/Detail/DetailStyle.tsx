@@ -1,14 +1,11 @@
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 
-export const MainStack = styled(Stack)`
+export const MainGrid = styled(Grid)`
   && {
-    margin-top: 150px;
     text-align: center;
-    width: 100%;
-    align-items: center;
   }
 `;
 export const TitlePage = styled(Typography)`
