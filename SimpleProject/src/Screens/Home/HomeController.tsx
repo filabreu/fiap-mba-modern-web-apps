@@ -28,7 +28,7 @@ class HomeController extends React.Component<any, IState>{
     render(){
         console.log("Count" + this.state.count);
         return(
-        <HomeView info={this.state.count} increment={this.increment}/>
+        <HomeView info={this.state.count}/>
         
         )
     }
