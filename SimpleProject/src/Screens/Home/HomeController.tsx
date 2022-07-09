@@ -1,37 +1,26 @@
-import React from 'react'
-import HomeModel from './HomeModel';
-import HomeView from './HomeView';
+import { useEffect, useState } from "react";
+import HomeModel from "./HomeModel";
+import HomeView from "./HomeView";
 
+const HomeController = () => {
+  const [count, setCount] = useState(1);
 
-interface IState{
-    count: number;
-}
-class HomeController extends React.Component<any, IState>{
-    homeModel: HomeModel
+  const increment = () => {
+    setCount((count) => count + 1); //Passando o count
+  };
 
-    increment = () => {
-        this.setState({
-            count: this.state.count+1
-        })
-    }
-   
-    constructor() {
-        super({});
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount((count) => count + 1);
+    }, 1000);
 
-        this.state = {
-            count: 1
-        }
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
-        this.homeModel = new HomeModel();
-        this.homeModel.getSomeInfo();
-    }
-    render(){
-        console.log("Count" + this.state.count);
-        return(
-        <HomeView info={this.state.count}/>
-        
-        )
-    }
-}
+  console.log("Count" + count);
+  return (<HomeView info={count} />);
+};
 
 export default HomeController;
