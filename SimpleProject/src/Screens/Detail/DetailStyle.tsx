@@ -8,14 +8,15 @@ export const MainGrid = styled(Grid)`
     text-align: center;
   }
 `;
-export const TitlePage = styled(Typography)`
-  && {
-    font-size: 28px;
-  }
-`;
 
 export const ButtonMaxSize = styled(Button)`
   && {
     max-width: 200px;
   }
 `;
+
+export const MapStyle = {
+  position: "relative",
+  width: "48%",
+  height: "100%",
+};
