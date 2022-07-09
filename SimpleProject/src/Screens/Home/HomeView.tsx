@@ -1,22 +1,17 @@
 import { FC } from "react";
-
 import Grid from "@mui/material/Grid";
-import { AllPersons, Person } from "../../Models/Person";
-import MaterialTable from "material-table";
 import { Title, TableHeaderStyle, TableRowStyle, TableSearchFieldStyle } from "./HomeStyle";
+import MaterialTable, { Query, QueryResult } from "material-table";
 
-interface IProps {
+type IProps = {
   loading: boolean;
-  person: AllPersons | null;
   onChangePage: Function;
-}
+  getData: (
+    query: Query<{ [x: string]: {} }>
+  ) => Promise<QueryResult<{ [x: string]: {} }>>;
+};
 
-const HomeView: FC<IProps> = ({ loading, person, onChangePage }) => {
-  let data: Person[] = [];
-  if (person) {
-    data = person.persons;
-  }
-
+const HomeView: FC<IProps> = ({ loading, onChangePage, getData }) => {
   const columns = [
     { title: "SobreNome", field: "lastName" },
     { title: "Nome", field: "firstName" },
@@ -39,7 +34,7 @@ const HomeView: FC<IProps> = ({ loading, person, onChangePage }) => {
       <Grid item lg={12}>
         <MaterialTable
           columns={columns}
-          data={data}
+          data={getData}
           isLoading={loading}
           actions={[
             {

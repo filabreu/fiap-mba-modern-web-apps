@@ -1,13 +1,14 @@
 import { FC, useEffect, useRef } from "react";
-import useAPI from "../../Services/APIs/Common/useAPI";
-import persons from "../../Services/APIs/Persons/Persons";
+import useAPI, { useApiReturnType } from "../../Services/APIs/Common/useAPI";
+import { getAllPersons } from "../../Services/APIs/Persons/Persons";
 import HomeView from "./HomeView";
 import { useGeolocated } from "react-geolocated";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Person } from "../../Models/Person";
+import { QueryResult } from "material-table";
 
 const HomeController: FC = () => {
-  const getPersonsGetAPI = useAPI(persons.getPersons);
+  const getPersonsGetAPI: useApiReturnType = useAPI(getAllPersons);
   const userCoordinates = useRef<GeolocationCoordinates | null>(null);
   const navigate: NavigateFunction = useNavigate();
 
@@ -38,11 +39,43 @@ const HomeController: FC = () => {
     });
   };
 
+  const getData = (query: any): Promise<QueryResult<{ [x: string]: {} }>> => {
+    return new Promise((resolve, reject) => {
+      console.log(query);
+
+      let page = query.page + 1;
+      let info = `page=${page}&perPage=${query.pageSize}`;
+      if (query.orderBy !== undefined && query.orderBy !== "") {
+        info += `&orderBy=${query.orderBy.field}`;
+      }
+      if (query.orderDirection !== undefined && query.orderDirection !== "") {
+        info += `&orderDirection=${query.orderDirection}`;
+      }
+      if (query.search !== undefined && query.search !== "") {
+        info += `&search=${query.search}`;
+      }
+      console.log(info);
+      getPersonsGetAPI
+        .requestPromise(info)
+        .then((info: any) => {
+          console.log(info);
+          resolve({
+            data: info.persons,
+            page: info.page - 1,
+            totalCount: info.totalItems,
+          });
+        })
+        .catch((error: string) => {
+          console.log(error);
+        });
+    });
+  };
+
   return (
-    <HomeView
-      person={getPersonsGetAPI.data}
+    <HomeView      
       loading={getPersonsGetAPI.loading}
       onChangePage={onChangePage}
+      getData={getData}
     />
   );
 
