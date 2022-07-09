@@ -1,7 +1,7 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import { AllPersons } from "../../Models/Person";
-import { Title, Main } from "./HomeStyle";
+import { Title, Main, CustomLink } from "./HomeStyle";
 
 interface IProps {
   info: number;
@@ -28,6 +28,13 @@ const HomeView: React.FC<IProps> = ({ info, person }) => {
         <Title gutterBottom variant="h1" color="secondary.dark">
           Info {info}
         </Title>
+
+        <CustomLink to="detail/1" >
+          Detail 1
+        </CustomLink>
+        <CustomLink to="detail/2" >
+          Detail 2
+        </CustomLink>
       </Grid>
     </Main>
   );

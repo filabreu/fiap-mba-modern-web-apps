@@ -2,17 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import HomeController from './Screens/Home/HomeController';
-import MuiThemes from './Utils/Common/MuiThemes';
+import { BrowserRouter } from "react-router-dom";
+import Router from "./Routes/Routes";
+import MuiThemes from "./Utils/Common/MuiThemes";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <MuiThemes>
-      <HomeController />
-    </MuiThemes>
+    <BrowserRouter>
+      <MuiThemes>
+        <Router />
+      </MuiThemes>
+    </BrowserRouter>
+    ,
   </React.StrictMode>
 );
 
