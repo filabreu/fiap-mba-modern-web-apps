@@ -1,46 +1,66 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
-import { AllPersons } from "../../Models/Person";
-import { Title, Main, CustomLink } from "./HomeStyle";
+import { FC } from "react";
 
+import Grid from "@mui/material/Grid";
+import { AllPersons, Person } from "../../Models/Person";
+import MaterialTable from "material-table";
+import { Title, TableHeaderStyle, TableRowStyle, TableSearchFieldStyle } from "./HomeStyle";
 
 interface IProps {
-  info: number;
+  loading: boolean;
   person: AllPersons | null;
-  onChangePage: (infoID: number) => void;
+  onChangePage: Function;
 }
 
-const HomeView: React.FC<IProps> = ({ info, person, onChangePage }) => {
-  let name = "";
+const HomeView: FC<IProps> = ({ loading, person, onChangePage }) => {
+  let data: Person[] = [];
   if (person) {
-    name = person.persons[0].firstName + " " + person.persons[0].lastName;
+    data = person.persons;
   }
+
+  const columns = [
+    { title: "SobreNome", field: "lastName" },
+    { title: "Nome", field: "firstName" },
+    { title: "Telefone", field: "phone" },
+  ];
+
   return (
-    <Main>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-      >
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      justifyContent="left"
+      alignItems="left"
+    >
+      <Grid item xs={12}>
         <Title gutterBottom variant="h1" color="primary.dark">
-          Person {name}
+          Lista de Colaboradores
         </Title>
-        <Title gutterBottom variant="h1" color="secondary.dark">
-          Info {info}
-        </Title>
-
-        <CustomLink onClick={() => onChangePage(1)}>
-          Detail 1
-        </CustomLink>
-        <CustomLink onClick={() => onChangePage(2)} >
-          Detail 2
-        </CustomLink>
-
       </Grid>
-    </Main>
+      <Grid item lg={12}>
+        <MaterialTable
+          columns={columns}
+          data={data}
+          isLoading={loading}
+          actions={[
+            {
+              icon: "visibility",
+              tooltip: "See Detail",
+              onClick: (event, rowData) => {
+                onChangePage(rowData);
+              },
+            },
+          ]}
+          options={{
+            showTitle: false,
+            search: true,
+            actionsColumnIndex: -1,
+            headerStyle: TableHeaderStyle,
+            rowStyle: TableRowStyle,
+            searchFieldStyle: TableSearchFieldStyle,
+          }}
+        />
+      </Grid>
+    </Grid>
   );
 };
-
 export default HomeView;

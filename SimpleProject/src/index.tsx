@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "./Routes/Routes";
 import MuiThemes from "./Utils/Common/MuiThemes";
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
