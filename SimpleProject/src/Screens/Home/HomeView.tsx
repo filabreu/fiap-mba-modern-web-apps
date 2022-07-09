@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
+import './Home.css';
 
-function HomeView(){
+type IProps = {
+    info: number
+}
+
+const HomeView:FC<IProps> = ({info}) => {
     return (
-        <div>Hello world</div>
+        <div className="App">Info = {info}</div>
     );
 }
 
