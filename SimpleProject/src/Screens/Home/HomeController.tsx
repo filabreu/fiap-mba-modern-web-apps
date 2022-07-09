@@ -39,6 +39,15 @@ const HomeController: FC = () => {
     });
   };
 
+  const onAddPage = () => {
+    navigate("add/", {
+      state: {
+        lat: userCoordinates.current!.latitude,
+        lng: userCoordinates.current!.longitude,
+      },
+    });
+  };
+
   const getData = (query: any): Promise<QueryResult<{ [x: string]: {} }>> => {
     return new Promise((resolve, reject) => {
       console.log(query);
@@ -72,10 +81,11 @@ const HomeController: FC = () => {
   };
 
   return (
-    <HomeView      
+    <HomeView
       loading={getPersonsGetAPI.loading}
       onChangePage={onChangePage}
       getData={getData}
+      onAddPage={onAddPage}
     />
   );
 

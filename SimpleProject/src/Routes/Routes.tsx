@@ -1,7 +1,7 @@
-import React from "react";
 import HomeController from "../Screens/Home/HomeController";
 import DetailController from "../Screens/Detail/DetailController";
 import { Routes, Route } from "react-router-dom";
+import AddController from "../Screens/Add/AddController";
 
 const routes = () => {
   return (
@@ -9,8 +9,8 @@ const routes = () => {
       <Route path="/" element={<HomeController />} />
       <Route path="detail">
         <Route path=":infoID" element={<DetailController />} />
-        <Route path="add" element={<DetailController />} />
       </Route>
+      <Route path="add" element={<AddController />} />
     </Routes>
   );
 };
