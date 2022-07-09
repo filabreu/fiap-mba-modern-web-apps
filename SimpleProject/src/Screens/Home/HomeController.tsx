@@ -1,12 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import persons from "../../Services/APIs/Persons/Persons";
 import HomeView from "./HomeView";
+import { useGeolocated } from "react-geolocated";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
-export default function HomeController() {
-  const [count, setCount] = useState(0);
+const HomeController: FC = () => {
+  const [count, setCount] = useState<number>(0);
   const getPersonsGetAPI = useAPI(persons.getPersons);
   const getPersonsPostAPI = useAPI(persons.getPersonsPost);
+  const userCoordinates = useRef<GeolocationCoordinates | null>(null);
+  const navigate: NavigateFunction = useNavigate();
+
+    const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+      useGeolocated({
+        positionOptions: {
+          enableHighAccuracy: false,
+        },
+        userDecisionTimeout: 5000,
+      });
+
+  if (isGeolocationAvailable && isGeolocationEnabled && coords) {
+    console.log(coords.latitude + " - " + coords.longitude);
+    userCoordinates.current = coords;
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -24,8 +41,22 @@ export default function HomeController() {
     };
   }, []);
 
-  // console.log(getPersonsGetAPI.data);
-  // console.log(getPersonsPostAPI.data);
+  const onChangePage = (infoID: number) => {
+    navigate("Detail/" + infoID, {
+      state: {
+        lat: userCoordinates.current!.latitude,
+        lng: userCoordinates.current!.longitude,
+      },
+    });
+  };
 
-  return <HomeView info={count} person={getPersonsGetAPI.data} />;
-}
+  return (
+    <HomeView
+      info={count}
+      person={getPersonsGetAPI.data}
+      onChangePage={onChangePage}
+    />
+  );
+};
+
+export default HomeController;

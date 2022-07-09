@@ -3,16 +3,18 @@ import Grid from "@mui/material/Grid";
 import { AllPersons } from "../../Models/Person";
 import { Title, Main, CustomLink } from "./HomeStyle";
 
+
 interface IProps {
   info: number;
   person: AllPersons | null;
+  onChangePage: (infoID: number) => void;
 }
 
-const HomeView: React.FC<IProps> = ({ info, person }) => {
+const HomeView: React.FC<IProps> = ({ info, person, onChangePage }) => {
   let name = "";
   if (person) {
     name = person.persons[0].firstName + " " + person.persons[0].lastName;
-  }  
+  }
   return (
     <Main>
       <Grid
@@ -29,12 +31,13 @@ const HomeView: React.FC<IProps> = ({ info, person }) => {
           Info {info}
         </Title>
 
-        <CustomLink to="detail/1" >
+        <CustomLink onClick={() => onChangePage(1)}>
           Detail 1
         </CustomLink>
-        <CustomLink to="detail/2" >
+        <CustomLink onClick={() => onChangePage(2)} >
           Detail 2
         </CustomLink>
+
       </Grid>
     </Main>
   );
