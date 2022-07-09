@@ -1,15 +1,20 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import { Title, Box, AcUnitIconCustom, CustomBox } from "./HomeStyle";
+import { AllPersons } from "../../Models/Person";
+import { Title, Main } from "./HomeStyle";
 
 interface IProps {
   info: number;
+  person: AllPersons | null;
 }
 
-const HomeView: React.FC<IProps> = ({ info }) => {
+const HomeView: React.FC<IProps> = ({ info, person }) => {
+  let name = "";
+  if (person) {
+    name = person.persons[0].firstName + " " + person.persons[0].lastName;
+  }  
   return (
-    <Box>
+    <Main>
       <Grid
         container
         spacing={0}
@@ -17,19 +22,14 @@ const HomeView: React.FC<IProps> = ({ info }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <AcUnitIconCustom />
         <Title gutterBottom variant="h1" color="primary.dark">
-          Info {info}
+          Person {name}
         </Title>
         <Title gutterBottom variant="h1" color="secondary.dark">
           Info {info}
         </Title>
-        <CustomBox color="#fff000"></CustomBox>
-        <Button variant="primary"> Primary </Button>
-        <Button color="secondary"> Secondary </Button>
-        <Button color="success"> Success </Button>
       </Grid>
-    </Box>
+    </Main>
   );
 };
 
