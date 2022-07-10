@@ -6,6 +6,7 @@ import { useGeolocated } from "react-geolocated";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Person } from "../../Models/Person";
 import { QueryResult } from "material-table";
+import Header from "../../Components/Header/Header";
 
 const HomeController: FC = () => {
   const getPersonsGetAPI: useApiReturnType = useAPI(getAllPersons);
@@ -81,14 +82,16 @@ const HomeController: FC = () => {
   };
 
   return (
+    <>
+    <Header />
     <HomeView
       loading={getPersonsGetAPI.loading}
       onChangePage={onChangePage}
       getData={getData}
       onAddPage={onAddPage}
     />
+    </>
   );
-
 };
 
 export default HomeController;

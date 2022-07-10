@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import useAPI, { useApiReturnType } from "../../Services/APIs/Common/useAPI";
 import auth from "../../Services/APIs/Auth/Auth";
 import LoginView from "./LoginView";
@@ -6,6 +6,10 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { FormikHelpers } from "formik";
 import { AxiosError } from "axios";
+import UserInfoContext, {
+  UserInfoContextType,
+} from "../../Store/UserInfo/UserInfoContext";
+import { UserInfo } from "../../Models/UserInfo";
 
 export type FormDataType = {
   email: string;
@@ -13,6 +17,7 @@ export type FormDataType = {
 };
 
 const LoginController = () => {
+  const context = useContext<UserInfoContextType>(UserInfoContext);
   const authLoginAPI: useApiReturnType = useAPI(auth.login);
   const [connectMessage, setConnectMessage] = useState<string>("");
   const [connectCode, setConnectCode] = useState<number>(0);
@@ -34,12 +39,14 @@ const LoginController = () => {
     setIsLoading(true);
     authLoginAPI
       .requestPromise(infoSend)
-      .then((info: any) => {
-        // console.log(info);
+      .then((info: UserInfo) => {
+        console.log(info);
         setIsLoading(false);
-        navigate("/main");
-        // setConnectCode(1);
-        // setConnectMessage("Colaborador logado com sucesso");
+        context.makeLogin({
+          userId: info.userId,
+          email: values.email,
+          token: info.token,
+        });
       })
       .catch((error: AxiosError) => {
         setIsLoading(false);
