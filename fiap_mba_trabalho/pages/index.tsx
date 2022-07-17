@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { GetStaticProps } from "next";
-import HomeController from "../src/Screens/Home/HomeController";
 import { MenuInfo } from "../src/Interfaces/MenuInfo";
 import UserInfoContextProvider from "./../src/Store/UserInfo/UserInfoProvider";
 import Router from "./../src/Routes/Routes";
@@ -21,9 +20,7 @@ const Home: FC<iProps> = ({ userInfo }) => {
     <>
    <React.StrictMode>
       <MuiThemes>
-        <UserInfoContextProvider>
-          <LoginController />
-        </UserInfoContextProvider>
+          <Router />
       </MuiThemes>
     ,
   </React.StrictMode>

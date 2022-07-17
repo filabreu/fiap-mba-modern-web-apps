@@ -89,7 +89,6 @@ const AddController = () => {
 
   return (
     <>
-      <Header />
       <AddView
         onBackButton={onBackButton}
         onSubmit={onSubmit}

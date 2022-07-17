@@ -10,16 +10,15 @@ export const Title = styled(Typography)`
   && {
     text-align: center;
     margin-top: 100px;
-    margin-bottom: 40px;
-  }
-`;
+    margin-bottom: 20px;
+  }`;
 
 export const CustomLink = styled.div`
   text-decoration: underline;
   cursor: pointer;
   color: ${Colors.PrimaryMedium};
   margin-bottom: 10px;
-`;
+`
 
 export const TableHeaderStyle = {
   backgroundColor: "#eee",

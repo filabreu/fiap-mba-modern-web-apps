@@ -1,5 +1,4 @@
 import { FC, useContext, useEffect } from "react";
-import HomeController from "../Screens/Home/HomeController";
 import { useRouter } from "next/router";
 import LoginController from "../Screens/Login/LoginController";
 import UserInfoContext, {
@@ -10,8 +9,8 @@ import { UserInfo } from "../Interfaces/UserInfo";
 const RoutesFunction = () => {
   const router = useRouter();
 
-  const { userInfo, makeLogin } =
-    useContext<UserInfoContextType>(UserInfoContext);
+  const { userInfo, makeLogin } = useContext<UserInfoContextType>(UserInfoContext);
+  
   useEffect(() => {
     console.log("Batendo aqui de novo no router");
 
@@ -39,9 +38,9 @@ const RoutesFunction = () => {
     }
 
     if (!hasToken) {
-      router.push("/login/");
+      router.push("/login");
     } else {
-      router.push("/product/");
+      router.push("/product");
     }
   }, []);
 

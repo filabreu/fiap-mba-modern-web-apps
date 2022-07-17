@@ -2,7 +2,9 @@ import { UserInfo } from "../../Interfaces/UserInfo";
 import { ActionProps } from "./UserInfoContext";
 import {setCookie} from 'nookies';
 
+
 const userInfoReducer = (state: UserInfo, action: ActionProps) => {
+  
   console.log("validando userInfo")
   console.log(action);
   switch (action.type) {
@@ -34,6 +36,7 @@ const userInfoReducer = (state: UserInfo, action: ActionProps) => {
 
     case "MAKE_LOGOUT":
         localStorage.setItem("userInfoToken", "");
+        
       return {
         ...state,
         token: "",

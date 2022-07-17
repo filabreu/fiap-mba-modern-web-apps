@@ -14,13 +14,8 @@ type IProps = {
 
 const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
 
-  //const columns = [
-  //  { title: "SobreNome", field: "lastName" },
-  //  { title: "Nome", field: "firstName" },
-  //  { title: "Telefone", field: "phone" },
-  //];
+
    const columns = [
-     { title: "ID", field: "_id" },
      { title: "Nome Produto", field: "name" },
      { title: "Preço", field: "price" },
      { title: "Favorito", field: "favorite" },
@@ -46,7 +41,7 @@ const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
         <MaterialTable
          actions={[
           {
-            icon: "visibility",
+            icon: "Detalhes",
             tooltip: "See Detail",
             onClick: (event, rowData) => {
               onChangePage(rowData);
