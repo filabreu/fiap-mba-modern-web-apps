@@ -5,7 +5,7 @@ import useAPI, {
 } from "../../../pages/Services/APIs/Common/useAPI";
 import getProduct from "../../../pages/Services/APIs/Persons/Persons";
 import ProductView from "./ProductView";
-import { Person } from "../../Models/Person";
+import { Product } from "../../Models/ProductDetail";
 import { QueryResult } from "material-table";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -17,7 +17,7 @@ type iProps = {
   userInfo: UserInfo;
 };
 
-const ProductController: FC<iProps> = () => {
+const ProductController: FC<iProps> = ({}) => {
   const getProductAPI: useApiReturnType = useAPI(getProduct);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,21 +31,21 @@ const ProductController: FC<iProps> = () => {
     infoSaved = localStorage.getItem("userInfoToken") as String | null;
 
     if (infoSaved !== "" && infoSaved !== null) {
-        let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
-        if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
+      let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
+      if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
         config = {
           headers: {
             Authorization: `Bearer ${userInfoLoaded.token}`,
           },
         };
-      }else{
-        router.push('/login');
+      } else {
+        router.push("/login");
       }
     }
   }, []);
 
-  const onChangePage = (person: Person) => {
-    router.push("detail/" + person._id);
+  const onChangePage = (product: Product) => {
+    router.push("detail/" + product._id);
   };
 
   const getData = (query: any): Promise<QueryResult<{ [x: string]: {} }>> => {

@@ -7,7 +7,7 @@ type Props = {
   children: JSX.Element;
 };
 
-const UserInfoContextProvider: React.FC<Props> = ({ children }) => {
+export const UserInfoContextProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(UserInfoReducer, {
     userId: "",
       token:"",
@@ -19,6 +19,7 @@ const UserInfoContextProvider: React.FC<Props> = ({ children }) => {
     userInfo: state,
     makeLogin: (userInfo: UserInfo) => {
       console.log("Fazendo login")
+      
       dispatch({
         type: "MAKE_LOGIN",
         payload: userInfo,

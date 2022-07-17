@@ -1,5 +1,6 @@
 import { UserInfo } from "../../Interfaces/UserInfo";
 import { ActionProps } from "./UserInfoContext";
+import {setCookie} from 'nookies';
 
 const userInfoReducer = (state: UserInfo, action: ActionProps) => {
   console.log("validando userInfo")
@@ -18,6 +19,11 @@ const userInfoReducer = (state: UserInfo, action: ActionProps) => {
       console.log("set login make login")
 
       localStorage.setItem("userInfoToken", JSON.stringify(userInfo));
+
+      setCookie(undefined, 'userInfoToken', userInfo.token as string, {
+        maxAge: 60*60*1, //1 hour
+      })
+
       return {
         ...state,
         userId: userInfo.userId,

@@ -1,44 +1,56 @@
 import { FC } from "react";
 import { Button, Typography, Grid } from "@mui/material";
-import { Person } from "../../Models/Person";
+import { ProductDetail } from "../../Models/ProductDetail";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
 import { MainGrid, MapStyle } from "./DetailStyle";
 
-// @ts-nocheck
-
 interface iProps {
-  person: Person | null;
+  productDetail: ProductDetail | null;
   onBackButton: Function;
+  handleFavoriteChange: any;
+  alignment: string;
 }
-const DetailView: FC<iProps> = ({ person, onBackButton }) => {
+
+const DetailView: FC<iProps> = ({
+  
+  productDetail,
+  onBackButton,
+  handleFavoriteChange,
+  alignment,
+}) => {
   return (
     <>
       <MainGrid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography gutterBottom variant="h2" color="primary.main">
-            Detalhe do Colaborador
+            Detalhe do Produto
           </Typography>
           <p>
-            <img src={person!.image} alt="Person" />
-          </p>
-          <p>
             <Typography gutterBottom variant="body1" color="primary.main">
-              Nome: {person!.firstName} {person!.lastName}
+              Nome: {productDetail!.product.name}
             </Typography>
           </p>
           <p>
             <Typography gutterBottom variant="body1" color="primary.main">
-              Nome: {person!.firstName} {person!.lastName}
+              Preço: {productDetail!.product.price}
             </Typography>
           </p>
           <p>
             <Typography gutterBottom variant="body1" color="primary.main">
-              Telefone: {person!.phone}
+              Favorito: {productDetail!.product.favorite ? "Sim" : "Não"}
             </Typography>
           </p>
-          <p>
-            <Typography gutterBottom variant="body1" color="primary.main">
-              Endereço: {person!.address}
-            </Typography>
+          <p> 
+            <ToggleButtonGroup
+              color="primary"
+              value={alignment}
+              exclusive
+              onChange={handleFavoriteChange}
+            >
+              <ToggleButton value="favorite">Favorito</ToggleButton>
+            </ToggleButtonGroup>
           </p>
         </Grid>
         <Grid item xs={12} md={6}>

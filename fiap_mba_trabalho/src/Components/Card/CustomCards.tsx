@@ -3,18 +3,18 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Person} from '../../Models/Person'
+import { ProductDetail} from '../../Models/ProductDetail'
 
 interface IProps {
-  person: Person
+  person: ProductDetail
 }
 
 const CustomCards:FC<IProps> = ({person}) => {
 
-    let address = person.address + " - " + person.city + "/" + person.state
+   // let address = person.address + " - " + person.city + "/" + person.state
     return (
         <Card >
-            <CardMedia
+            {/* <CardMedia
                 component="img"
                 height="200"
                 image={person.image}
@@ -33,7 +33,7 @@ const CustomCards:FC<IProps> = ({person}) => {
                 <Typography variant="body2" color="text.secondary">
                     {person.zipCode}
                 </Typography>
-            </CardContent>
+            </CardContent> */}
         </Card>
     );
 };

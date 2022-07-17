@@ -28,6 +28,7 @@ const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
   
 
   return (
+    <div>
     <Grid
       container
       spacing={0}
@@ -36,25 +37,26 @@ const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
       alignItems="left"
     >
       <Grid item xs={12}>
-        <Title gutterBottom variant="h1" color="primary.dark">
+        <Title gutterBottom variant="h3" color="primary.dark">
           Lista de Produtos
         </Title>
       </Grid>
       
       <Grid item lg={12}>
         <MaterialTable
+         actions={[
+          {
+            icon: "visibility",
+            tooltip: "See Detail",
+            onClick: (event, rowData) => {
+              onChangePage(rowData);
+            },
+          },
+        ]}
           columns={columns}
           data={getData}
           isLoading={loading}
-           actions={[
-             {
-               icon: "visibility",
-               tooltip: "See Detail",
-               onClick: (event, rowData) => {
-                 onChangePage(rowData);
-               },
-             },
-           ]}
+          
            options={{
              showTitle: false,
              search: true,
@@ -66,6 +68,7 @@ const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
         />
       </Grid>
     </Grid>
+    </div>
   );
 };
 export default ProductView;

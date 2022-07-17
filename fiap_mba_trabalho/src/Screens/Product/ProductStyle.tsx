@@ -10,7 +10,7 @@ export const Title = styled(Typography)`
   && {
     text-align: center;
     margin-top: 100px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 `;
 

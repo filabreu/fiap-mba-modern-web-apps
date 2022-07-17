@@ -1,31 +1,42 @@
 import React, { FC } from "react";
 import { GetServerSideProps } from "next";
 import DetailController from "../../src/Screens/Detail/DetailController";
-import { UserInfo } from "../../src/Interfaces/UserInfo";
+import { ProductDetail } from "../../src/Models/ProductDetail";
+import {parseCookies} from 'nookies';
 
 
 type iProps = {
-  userInfo: UserInfo
+  productDetail: ProductDetail
 };
 
-const detail:FC<iProps> = ({ userInfo }) => {
-  return <DetailController />;
+const detail:FC<iProps> = ({ productDetail }) => {
+  return <DetailController productDetail={productDetail}/>;
 };
 export default detail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
+  console.log(context.req.cookies);
   console.log("Inicio SSR getServerSideProps");
+  const { 'userInfoToken': token } = parseCookies(context)
+  console.log(token);
   const res = await fetch(
-    process.env.REACT_APP_URL + `api/getInfo/${context.params!.id}?search=Roberto`
+    
+    process.env.REACT_APP_URL + `storeProducts/product/${context.params!.id}`
+    , {
+      method: 'get', 
+      headers: new Headers({
+        'Authorization': `Bearer ${token}`
+    }),
+    }  
   );
-  const userInfo = await res.json() as UserInfo;
+  const productDetail = await res.json() as ProductDetail;
   console.log("Checking items");
-  console.log(userInfo);
+  console.log(productDetail);
 
   return {
     props: {
-      userInfo: userInfo,
+      productDetail: productDetail,
     },
   };
 }

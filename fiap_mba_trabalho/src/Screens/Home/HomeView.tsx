@@ -1,25 +1,25 @@
 import { FC, ReactElement } from "react";
 import { Typography, CircularProgress, Grid, GridProps } from "@mui/material";
-import { AllPersons } from "../../Models/Person";
+import { ProductDetail } from "../../Models/ProductDetail";
 import CustomCards from "../../Components/Card/CustomCards";
 
 interface IProps {
-  person: AllPersons | null;
+  person: ProductDetail | null;
   loading: boolean;
   error: string;
 }
 
 const HomeView: FC<IProps> = ({ person, loading, error }) => {
   let arrayCards: ReactElement<GridProps>[] = [];
-  if (person) {
-    person.persons.forEach((element) => {
-      arrayCards.push(
-        <Grid item xs={12} md={6} lg={3} key={element._id}>
-          <CustomCards person={element} />
-        </Grid>
-      );
-    });
-  }
+  // if (person) {
+  //   person.persons.forEach((element) => {
+  //     arrayCards.push(
+  //       <Grid item xs={12} md={6} lg={3} key={element._id}>
+  //         <CustomCards person={element} />
+  //       </Grid>
+  //     );
+  //   });
+  //}
 
   let info = null;
   if (loading) {
