@@ -88,8 +88,8 @@ const LoginView: FC<IProps> = ({
                 >
                   <GridLogin item xs={12} md={6}>
                     {message}
-                    <Typography gutterBottom variant="h3" color="secondary.main">
-                      Bem-vindo ao Sistema de Colaboradores
+                    <Typography gutterBottom variant="h3" color="primary.main">
+                      Login
                     </Typography>
                     <DivTextInput>
                       <CustomTextField

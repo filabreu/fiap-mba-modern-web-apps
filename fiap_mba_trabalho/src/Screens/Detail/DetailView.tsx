@@ -3,6 +3,7 @@ import { Button, Typography, Grid } from "@mui/material";
 import { ProductDetail } from "../../Models/ProductDetail";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Checkbox from '@mui/material/Checkbox';
 
 import { MainGrid, MapStyle } from "./DetailStyle";
 
@@ -10,9 +11,9 @@ interface iProps {
   productDetail: ProductDetail | null;
   onBackButton: Function;
   handleFavoriteChange: any;
-  alignment: string;
+  alignment: boolean;
 }
-
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const DetailView: FC<iProps> = ({
   
   productDetail,
@@ -39,18 +40,13 @@ const DetailView: FC<iProps> = ({
           </p>
           <p>
             <Typography gutterBottom variant="body1" color="primary.main">
-              Favorito: {productDetail!.product.favorite ? "Sim" : "Não"}
+              Favorito: {alignment ? "Sim" : "Não"}
             </Typography>
           </p>
           <p> 
-            <ToggleButtonGroup
-              color="primary"
-              value={alignment}
-              exclusive
-              onChange={handleFavoriteChange}
-            >
-              <ToggleButton value="favorite">Favorito</ToggleButton>
-            </ToggleButtonGroup>
+          <Checkbox onChange={handleFavoriteChange}
+          {...label}
+           defaultChecked={productDetail!.product.favorite} />
           </p>
         </Grid>
         <Grid item xs={12} md={6}>

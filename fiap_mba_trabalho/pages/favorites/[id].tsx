@@ -18,9 +18,10 @@ const detail:FC<iProps> = ({ favoriteProducts }) => {
     const { 'userInfoToken': token } = parseCookies(context)
     const res = await fetch(
       
-      process.env.REACT_APP_URL + `storeProducts/getFavProducts`
-      , {
-        method: 'get', 
+      process.env.REACT_APP_URL + `storeProducts/manageFavorite`,
+       {
+        body: JSON.stringify({"productID":context.params!._id}),
+        method: 'post', 
         headers: new Headers({
           'Authorization': `Bearer ${token}`
       }),
