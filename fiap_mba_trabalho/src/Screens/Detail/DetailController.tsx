@@ -1,10 +1,11 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import { ProductDetail } from "../../Models/ProductDetail";
 import DetailView from "./DetailView";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { UserInfo } from "../../Interfaces/UserInfo";
 import Header from "../../Components/Header/Header";
+import { useGeolocated } from "react-geolocated";
 
 type iProps = {
   productDetail: ProductDetail
@@ -12,8 +13,28 @@ type iProps = {
 
 const DetailController: FC<iProps> = ({productDetail})=> {
   const [alignment, setAlignment] = useState<boolean>(false);  
+  const userCoordinates = useRef<GeolocationCoordinates | null>(null);
   
-  
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+      useGeolocated({
+        positionOptions: {
+          enableHighAccuracy: false,
+        },
+        userDecisionTimeout: 5000,
+      });
+
+      if (isGeolocationAvailable && isGeolocationEnabled && coords) {
+        console.log(coords.latitude + " - " + coords.longitude);
+        userCoordinates.current = coords;
+      }
+    
+      
+      // {
+      //   state:{
+      //     lat: userCoordinates.current!.latitude
+      //     lng: userCoordinates.current!.longitude
+      //   }
+      // }
   const router = useRouter();
   let infoSaved = null;
   let config: any;
