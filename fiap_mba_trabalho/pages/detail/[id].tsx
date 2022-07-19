@@ -17,7 +17,6 @@ export default detail;
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
   console.log(context.req.cookies);
-  console.log("Inicio SSR getServerSideProps");
   const { 'userInfoToken': token } = parseCookies(context)
   console.log(token);
   const res = await fetch(

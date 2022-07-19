@@ -75,7 +75,7 @@ const Header = () => {
               sx={{ flexGrow: 1 }}
             ></Typography>
             <div>
-              <Chip label={context.userInfo.name} />
+              {/* <Chip label={context.userInfo.name} /> */}
             </div>
             <Button variant="contained" onClick={() => logout()}>
               LogOut

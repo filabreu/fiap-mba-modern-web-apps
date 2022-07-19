@@ -6,10 +6,6 @@ import axios from "axios";
 import { UserInfo } from "../../Interfaces/UserInfo";
 import Header from "../../Components/Header/Header";
 
-type ParamsProps = {
-  infoID: string;
-};
-
 type iProps = {
   productDetail: ProductDetail
 };

@@ -19,9 +19,7 @@ const Home: FC<iProps> = ({ userInfo }) => {
   return (
     <>
    <React.StrictMode>
-      <MuiThemes>
           <Router />
-      </MuiThemes>
     ,
   </React.StrictMode>
 </>
