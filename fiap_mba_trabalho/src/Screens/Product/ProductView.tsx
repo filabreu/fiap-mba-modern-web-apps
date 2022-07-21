@@ -2,7 +2,7 @@ import { FC } from "react";
 import Grid from "@mui/material/Grid";
 import { Title, TableHeaderStyle, TableRowStyle, TableSearchFieldStyle } from "./ProductStyle";
 import MaterialTable, { Query, QueryResult } from "material-table";
-import { Button } from "@mui/material";
+import Visibility from '@material-ui/icons/Visibility';
 
 type IProps = {
   loading: boolean;
@@ -41,7 +41,7 @@ const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
         <MaterialTable
          actions={[
           {
-            icon: "Detalhes",
+            icon: Visibility,
             tooltip: "See Detail",
             onClick: (event, rowData) => {
               onChangePage(rowData);

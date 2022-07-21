@@ -3,12 +3,15 @@ import { GetServerSideProps } from "next";
 import DetailController from "../../src/Screens/Detail/DetailController";
 import { ProductDetail } from "../../src/Models/ProductDetail";
 import {parseCookies} from 'nookies';
+import { useGeolocated } from "react-geolocated";
 
 
 type iProps = {
   productDetail: ProductDetail
 };
 
+  
+  
 const detail:FC<iProps> = ({ productDetail }) => {
   return <DetailController productDetail={productDetail}/>;
 };

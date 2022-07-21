@@ -81,7 +81,7 @@ const GoogleMaps: FC<GoogleMapsInterface> = ({ markers, draggable, zoom, initial
       initialCenter={initialCenter}
       google={google}
       onDragend={(e: IMapProps | undefined, map: google.maps.Map | undefined, event:any ) => {
-        console.log(" Teste ");
+        console.log(" Teste EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe");
         console.log(e);
         
       }}
@@ -90,5 +90,5 @@ const GoogleMaps: FC<GoogleMapsInterface> = ({ markers, draggable, zoom, initial
 };
 
 export default GoogleApiWrapper({
-  apiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY + "",
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY + "",
 })(GoogleMaps);

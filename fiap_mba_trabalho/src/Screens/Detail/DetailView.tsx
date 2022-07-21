@@ -1,15 +1,21 @@
 import { FC } from "react";
-import { Button, Typography, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ProductDetail } from "../../Models/ProductDetail";
 import Checkbox from '@mui/material/Checkbox';
-
-import { MainGrid } from "./DetailStyle";
+import GoogleMaps, {
+  GoogleMapsMarkerInterface,
+} from "../../Components/GoogleMaps/GoogleMaps";
+import {MainGrid} from './DetailStyle'
 
 interface iProps {
   productDetail: ProductDetail | null;
   onBackButton: Function;
   handleFavoriteChange: any;
   alignment: boolean;
+  latitude: number;
+  longitude: number;
 }
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const DetailView: FC<iProps> = ({
@@ -18,7 +24,18 @@ const DetailView: FC<iProps> = ({
   onBackButton,
   handleFavoriteChange,
   alignment,
+  latitude,
+  longitude,
 }) => {
+  let markers: GoogleMapsMarkerInterface[] = [];
+  markers.push({
+    lat: latitude,
+    lng: longitude,
+    title: "Usuário",
+    info:
+      "Minha <b>Posição</b> <br><br> " +
+      " <a href='https://developers.google.com/maps/documentation/javascript/infowindows' target='_blank'>Mais Informações</a>",
+  });
   return (
     <>
       <MainGrid container spacing={2}>
@@ -51,6 +68,14 @@ const DetailView: FC<iProps> = ({
           <Button variant="contained" onClick={() => onBackButton()}>
             Voltar
           </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <GoogleMaps
+            markers={markers}
+            draggable={false}
+            zoom={16}
+            initialCenter={{ lat: latitude, lng: longitude }}
+          />
         </Grid>
       </MainGrid>
     </>

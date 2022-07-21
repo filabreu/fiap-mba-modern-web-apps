@@ -23,6 +23,7 @@
     "formik": "^2.2.9",
     "google-maps-react": "^2.0.6",
     "material-table": "^1.69.3",
+    "material-table-next": "^1.1.10",
     "next": "12.2.2",
     "next-auth": "^4.10.0",
     "nookies": "^2.5.2",
