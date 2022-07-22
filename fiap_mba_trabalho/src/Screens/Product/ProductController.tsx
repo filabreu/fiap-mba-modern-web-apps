@@ -42,7 +42,7 @@ const ProductController: FC<iProps> = ({ infob }) => {
   useEffect(() => {
     console.log("dentro do UseEffect");
     infoSaved = localStorage.getItem("userInfoToken") as String | null;
-
+    setLoading(true);
     if (infoSaved !== "" && infoSaved !== null) {
       let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
       if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
@@ -51,6 +51,7 @@ const ProductController: FC<iProps> = ({ infob }) => {
         router.push("/login");
       }
     }
+    return(setLoading(true));
   }, []);
 
   const onChangePage = (product: Product) => {
@@ -67,6 +68,7 @@ const ProductController: FC<iProps> = ({ infob }) => {
 
   const getData = (query: any): Promise<QueryResult<{ [x: string]: {} }>> => {
     return new Promise((resolve, reject) => {
+      
       console.log(query);
 
       let page = query.page + 1;
@@ -80,14 +82,15 @@ const ProductController: FC<iProps> = ({ infob }) => {
       if (query.search !== undefined && query.search !== "") {
         info += `&search=${query.search}`;
       }
-
+      
       resolve({
         data: infob.products,
         page: infob.page - 1,
         totalCount: infob.totalItems,
       });
-      setLoading(false);
+      
       setData(data);
+      setLoading(false);
     });
   };
 
@@ -95,7 +98,7 @@ const ProductController: FC<iProps> = ({ infob }) => {
     <>
       <Header />
       <ProductView
-        loading={getProductAPI.loading}
+        loading={loading}
         onChangePage={onChangePage}
         getData={getData}
       />

@@ -28,6 +28,16 @@ const DetailView: FC<iProps> = ({
   longitude,
 }) => {
   let markers: GoogleMapsMarkerInterface[] = [];
+  for (let index = 0; index < productDetail!.product.stores.length; index++) {
+    const store = productDetail!.product.stores[index];
+    markers.push({
+      lat: store.latitude,
+      lng: store.longitude,
+      title: store.name,
+      info: store.address,
+    });  
+  }
+  
   markers.push({
     lat: latitude,
     lng: longitude,
@@ -72,7 +82,7 @@ const DetailView: FC<iProps> = ({
         <Grid item xs={12}>
           <GoogleMaps
             markers={markers}
-            draggable={false}
+            draggable={true}
             zoom={16}
             initialCenter={{ lat: latitude, lng: longitude }}
           />

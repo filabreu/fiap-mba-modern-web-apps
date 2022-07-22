@@ -14,7 +14,6 @@ type IProps = {
 
 const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
 
-
    const columns = [
      { title: "Nome Produto", field: "name" },
      { title: "Preço", field: "price" },
@@ -32,7 +31,7 @@ const ProductView: FC<IProps> = ({ loading, onChangePage, getData }) => {
       alignItems="left"
     >
       <Grid item xs={12}>
-        <Title gutterBottom variant="h3" color="primary.dark">
+        <Title gutterBottom variant="h3" color="secondary">
           Lista de Produtos
         </Title>
       </Grid>

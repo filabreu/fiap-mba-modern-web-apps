@@ -22,14 +22,14 @@ export const CustomLink = styled.div`
 
 export const TableHeaderStyle = {
   backgroundColor: "#eee",
-  color: Colors.PrimaryDark,
+  color: "#0000FF",
 };
 
 export const TableRowStyle = {
-  color: Colors.PrimaryMedium,
+  color: "#0080FF",
 };
 
 export const TableSearchFieldStyle = {
-  color: Colors.PrimaryDark,
+  color: "#0080FF",
   borderBottom: "2px solid #eee",
 };
