@@ -10,10 +10,9 @@ interface iProps {
 }
 
 const columns: GridColDef[] = [
-  { field: "_id", headerName: "ID", width: 130, hideable: true },
+  { field: "_id", headerName: "ID", width: 130, hide: true },
   { field: "name", headerName: "Nome", width: 130 },
   { field: "price", headerName: "Preço", width: 130 },
-  { field: "favorite", headerName: "Favorito", width: 130 },
   {
     field: "action",
     headerName: "Detalhes",
@@ -49,7 +48,6 @@ const FavoriteProductView: FC<iProps> = ({
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
       />
     </div>
   );

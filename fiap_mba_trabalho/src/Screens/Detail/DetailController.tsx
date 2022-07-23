@@ -20,6 +20,7 @@ const DetailController: FC<iProps> = ({ productDetail }) => {
   const router = useRouter();
   const [alignment, setAlignment] = useState<boolean>(false);
   const info: LocationProps = router.query as LocationProps;
+  const userCoordinates = useRef<GeolocationCoordinates | null>(null);
   
   let infoSaved = null;
   let config: any;
@@ -27,7 +28,8 @@ const DetailController: FC<iProps> = ({ productDetail }) => {
 
     infoSaved = localStorage.getItem("userInfoToken") as String | null;
     setAlignment(productDetail.product.favorite);
-    
+    console.log(userCoordinates)
+    console.log("ALLOWWWWWWWWWW")
     if (infoSaved !== "" && infoSaved !== null) {
       let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
       if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
@@ -66,7 +68,6 @@ const DetailController: FC<iProps> = ({ productDetail }) => {
 
   return (
     <>
-    {console.log("dentro do return" + info.lat + " - " + info.lng)}
       <Header />
       <DetailView
         productDetail={productDetail}

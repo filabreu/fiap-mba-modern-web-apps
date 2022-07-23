@@ -12,8 +12,6 @@ const RoutesFunction = () => {
   const { userInfo, makeLogin } = useContext<UserInfoContextType>(UserInfoContext);
   
   useEffect(() => {
-    console.log("Batendo aqui de novo no router");
-
     let hasToken = false;
     if (userInfo.token === "" || userInfo.token === null) {
       let infoSaved = null;
@@ -21,7 +19,6 @@ const RoutesFunction = () => {
       infoSaved = localStorage.getItem("userInfoToken") as string | null;
 
       if (infoSaved !== "" && infoSaved !== null) {
-        console.log("infoSaved" + infoSaved);
         let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
         if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
           makeLogin({
@@ -29,6 +26,8 @@ const RoutesFunction = () => {
             token: userInfoLoaded.token,
             phone: userInfoLoaded.phone,
             name: userInfoLoaded.userId,
+            lat:"",
+            lon:""
           });
           hasToken = true;
         }
