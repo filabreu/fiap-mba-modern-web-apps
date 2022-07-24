@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from "react";
+import React, { FC, useMemo, useState, useEffect, useRef } from "react";
 import useAPI, {
   useApiReturnType,
 } from "../../../pages/Services/APIs/Common/useAPI";
@@ -15,6 +15,12 @@ import { LocationProps } from "../Detail/DetailController";
 type iProps = {
   infob: any;
 };
+
+const getUserToken = () => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem("userInfoToken") as string | null;
+  }
+}
 
 const ProductController: FC<iProps> = ({ infob }) => {
   const getProductAPI: useApiReturnType = useAPI(getProduct);
@@ -36,15 +42,14 @@ const ProductController: FC<iProps> = ({ infob }) => {
     userCoordinates.current = coords;
   }
 
-  let infoSaved = null;
-  let config: any;
+  const userToken = useMemo(() => getUserToken(), []);
 
   useEffect(() => {
-    console.log("dentro do UseEffect");
-    infoSaved = localStorage.getItem("userInfoToken") as String | null;
     setLoading(true);
-    if (infoSaved !== "" && infoSaved !== null) {
-      let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
+
+    if (userToken && userToken !== "" && userToken !== null) {
+      let userInfoLoaded: UserInfo = JSON.parse(userToken) as UserInfo;
+
       if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
         
       } else {

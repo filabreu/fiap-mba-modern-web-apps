@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { UserInfo } from "../../Interfaces/UserInfo";
-import UserInfoContext, { ActionProps } from "./UserInfoContext";
+import UserInfoContext from "./UserInfoContext";
 import UserInfoReducer from "./UserInfoReducer";
 import { useRouter } from "next/router";
 
@@ -19,22 +19,17 @@ export const UserInfoContextProvider: React.FC<Props> = ({ children }) => {
   const userInfoValue = {
     userInfo: state,
     makeLogin: (userInfo: UserInfo) => {
-      console.log("Fazendo login")
-      
       dispatch({
         type: "MAKE_LOGIN",
         payload: userInfo,
       });
     },
     makeLogOut: () => {
-      
-      console.log("Fazendo logout");
       router.push("/login");
       dispatch({
         type: "MAKE_LOGOUT",
         payload: null,
       });
-      
     },
   };
 

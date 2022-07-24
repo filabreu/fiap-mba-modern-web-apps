@@ -9,7 +9,6 @@ import UserInfoContext, {
   UserInfoContextType,
 } from "../../Store/UserInfo/UserInfoContext";
 import { useRouter } from "next/router";
-import Header from "../../Components/Header/Header";
 
 export type FormDataType = {
   email: string;
@@ -41,14 +40,15 @@ const LoginController = () => {
       .then((info: any) => {
         console.log(info);
         setIsLoading(false);
-        console.log("Retornou da api")
+
         context.makeLogin({
           userId: info.userId,
           token: info.token,
           phone: info.phone,
           name: info.name
         });
-        router.push('/product')
+
+        router.push('/product');
       })
       .catch((error: AxiosError) => {
         setIsLoading(false);

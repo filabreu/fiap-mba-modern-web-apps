@@ -4,9 +4,6 @@ import {setCookie} from 'nookies';
 
 
 const userInfoReducer = (state: UserInfo, action: ActionProps) => {
-  
-  console.log("validando userInfo")
-  console.log(action);
   switch (action.type) {
     case "CHANGE_USER_NAME":
       const userName = action.payload;
@@ -17,8 +14,6 @@ const userInfoReducer = (state: UserInfo, action: ActionProps) => {
 
     case "MAKE_LOGIN":
       const userInfo: UserInfo = action.payload as UserInfo;
-
-      console.log("set login make login")
 
       localStorage.setItem("userInfoToken", JSON.stringify(userInfo));
 

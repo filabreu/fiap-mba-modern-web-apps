@@ -21,18 +21,15 @@ const product: FC<iProps> = ({ infob }) => {
 export default product;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log("Batendo getServerSideProps!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111!!!!")
-const { 'userInfoToken': token } = parseCookies(context)
-const res = await fetch(
-    
-  process.env.REACT_APP_URL + `storeProducts`
-  , {
+  const { 'userInfoToken': token } = parseCookies(context)
+  const res = await fetch(process.env.REACT_APP_URL + `storeProducts`, {
     method: 'get', 
     headers: new Headers({
       'Authorization': `Bearer ${token}`
-  }),
-  }  
+    }),
+  }
 );
+
 const itens = await res.json();
   return {
     props: {

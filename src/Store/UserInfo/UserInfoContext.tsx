@@ -1,8 +1,6 @@
 import { Context, createContext } from "react";
 import { UserInfo } from "../../Interfaces/UserInfo";
 
-
-
 export type ActionProps = {
   type: string;
   payload: any;
@@ -22,7 +20,7 @@ const UserInfoContext: Context<UserInfoContextType> =
       phone:"",
       name:""
     },
-    makeLogin: (userInfo: UserInfo) => { },
+    makeLogin: (userInfo: UserInfo) => {},
     makeLogOut: () => {},
   });
 
