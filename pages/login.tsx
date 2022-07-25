@@ -28,6 +28,7 @@ const Login = () => {
           const { token, userId, name } = data
 
           setUserInfo({ userId, name })
+          localStorage.setItem('token', token)
 
           router.push('/')
         })
