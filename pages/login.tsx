@@ -2,12 +2,14 @@ import { FormEvent, useContext, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import ErrorContext from '../context/ErrorContext/ErrorContext'
+import UserContext from '../context/UserContext/UserContext'
 import login from '../services/auth/login'
 import Input from '../components/Input'
 
 const Login = () => {
   const router = useRouter()
   const { setErrorInfo } = useContext(ErrorContext)
+  const { setUserInfo } = useContext(UserContext)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -22,7 +24,11 @@ const Login = () => {
 
     if (validateForm()) {
       login({ email, password })
-        .then(() => {
+        .then((data) => {
+          const { token, userId, name } = data
+
+          setUserInfo({ userId, name })
+
           router.push('/')
         })
         .catch((err) => {
