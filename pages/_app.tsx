@@ -1,8 +1,19 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
+import ErrorContextProvider from '../context/ErrorContext/ErrorContextProvider'
+import ErrorMessage from '../components/ErrorMessage'
+
+import '../styles/globals.css'
+
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <ErrorContextProvider>
+      <>
+        <ErrorMessage />
+        <Component {...pageProps} />
+      </>
+    </ErrorContextProvider>
+  )
 }
 
 export default MyApp

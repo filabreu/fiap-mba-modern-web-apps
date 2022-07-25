@@ -1,10 +1,12 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { useRouter } from 'next/router'
 
+import ErrorContext from '../context/ErrorContext/ErrorContext'
 import signup from '../services/auth/signup'
 import Input from '../components/Input'
 
 const Signup = () => {
+  const { setErrorInfo } = useContext(ErrorContext)
   const router = useRouter()
 
   const [email, setEmail] = useState<string>('')
@@ -17,7 +19,8 @@ const Signup = () => {
   }
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+    setErrorInfo(null)
 
     if (validateForm()) {
       signup({ email, password, name, phone })
@@ -25,7 +28,9 @@ const Signup = () => {
           router.push('/login')
         })
         .catch((err) => {
-          console.error(err)
+          const { error: { message, data } } = err
+
+          setErrorInfo({ message, data })
         })
     }
   }

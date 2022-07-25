@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { useRouter } from 'next/router'
 
+import ErrorContext from '../context/ErrorContext/ErrorContext'
 import login from '../services/auth/login'
 import Input from '../components/Input'
 
 const Login = () => {
   const router = useRouter()
+  const { setErrorInfo } = useContext(ErrorContext)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -14,14 +16,19 @@ const Login = () => {
     return true
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    setErrorInfo(null)
+
     if (validateForm()) {
       login({ email, password })
         .then(() => {
           router.push('/')
         })
         .catch((err) => {
-          console.error(err)
+          const { error: { message, data } } = err
+
+          setErrorInfo({ message, data })
         })
     }
   }
@@ -41,6 +48,7 @@ const Login = () => {
           <div className="mt-4">
             <Input
               label="Senha"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
