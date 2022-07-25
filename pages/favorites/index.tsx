@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { GetServerSideProps } from "next";
-import { FavoriteProducts } from "../../src/Models/FavoriteProducts";
+import { FavoriteProducts } from "../../Models/FavoriteProducts";
 import {parseCookies} from 'nookies';
-import FavoriteProductController from "../../src/Screens/Favorites/FavoriteProductController";
+import FavoriteProductController from "../../Screens/Favorites/FavoriteProductController";
 
 type iProps = {
     favoriteProducts: FavoriteProducts
@@ -17,13 +17,9 @@ const detail:FC<iProps> = ({ favoriteProducts }) => {
 
     const { 'userInfoToken': token } = parseCookies(context)
     const res = await fetch(
-      
-      process.env.REACT_APP_URL + `storeProducts/getFavProducts`
-      , {
+      process.env.REACT_APP_URL + `storeProducts/getFavProducts`, {
         method: 'get', 
-        headers: new Headers({
-          'Authorization': `Bearer ${token}`
-      }),
+        headers: new Headers({ 'Authorization': `Bearer ${token}` }),
       }  
     );
     const favoriteProducts = await res.json() as FavoriteProducts;
@@ -36,4 +32,3 @@ const detail:FC<iProps> = ({ favoriteProducts }) => {
       },
     };
   }
-

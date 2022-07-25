@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import useAPI, { useApiReturnType } from "../../../pages/Services/APIs/Common/useAPI";
-import auth from "../../../pages/Services/APIs/Auth/Auth";
+import useAPI, { useApiReturnType } from "../../Services/APIs/Common/useAPI";
+import auth from "../../Services/APIs/Auth/Auth";
 import LoginView from "./LoginView";
 import * as Yup from "yup";
 import { FormikHelpers } from "formik";

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { UserInfo } from "../../src/Interfaces/UserInfo";
-import ProductController from "../../src/Screens/Product/ProductController";
-import Router from "./../../src/Routes/Routes";
+import { UserInfo } from "../../Interfaces/UserInfo";
+import ProductController from "../../Screens/Product/ProductController";
+import Router from "./../../Routes/Routes";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import {parseCookies} from 'nookies';
@@ -24,9 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { 'userInfoToken': token } = parseCookies(context)
   const res = await fetch(process.env.REACT_APP_URL + `storeProducts`, {
     method: 'get', 
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`
-    }),
+    headers: new Headers({ 'Authorization': `Bearer ${token}` }),
   }
 );
 

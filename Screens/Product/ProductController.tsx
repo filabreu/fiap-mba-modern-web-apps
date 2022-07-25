@@ -1,8 +1,8 @@
 import React, { FC, useMemo, useState, useEffect, useRef } from "react";
 import useAPI, {
   useApiReturnType,
-} from "../../../pages/Services/APIs/Common/useAPI";
-import getProduct from "../../../pages/Services/APIs/Persons/Persons";
+} from "../../Services/APIs/Common/useAPI";
+import getProduct from "../../Services/APIs/Persons/Persons";
 import ProductView from "./ProductView";
 import { Product } from "../../Models/ProductDetail";
 import { QueryResult } from "material-table";

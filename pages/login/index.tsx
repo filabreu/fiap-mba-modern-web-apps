@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { UserInfo } from "../../src/Interfaces/UserInfo";
-import LoginController from "../../src/Screens/Login/LoginController";
+import { UserInfo } from "../../Interfaces/UserInfo";
+import LoginController from "../../Screens/Login/LoginController";
 
 type iProps = {
   userInfo: UserInfo

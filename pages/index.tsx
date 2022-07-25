@@ -1,29 +1,18 @@
 import { FC } from "react";
-import { GetStaticProps } from "next";
-import { MenuInfo } from "../src/Interfaces/MenuInfo";
-import UserInfoContextProvider from "./../src/Store/UserInfo/UserInfoProvider";
-import Router from "./../src/Routes/Routes";
-import LoginController from "../src/Screens/Login/LoginController";
+import Router from "./../Routes/Routes";
 import React from "react";
-import MuiThemes from "../src/Utils/Common/MuiThemes";
-import { UserInfo } from "../src/Interfaces/UserInfo";
-import axios from "axios";
-
+import { UserInfo } from "../Interfaces/UserInfo";
 
 type iProps = {
   userInfo: UserInfo[];
 };
 
-
 const Home: FC<iProps> = ({ userInfo }) => {
   return (
     <>
-   <React.StrictMode>
-          <Router />
-    ,
-  </React.StrictMode>
-</>
+      <React.StrictMode>
+        <Router />
+      </React.StrictMode>
+    </>
   )};
 export default Home;
-
-
