@@ -1,6 +1,6 @@
 const request = async (method: string, url: string, data?: object, headers?: HeadersInit): Promise<object> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}${url}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`,
     {
       method: method,
       body: data ? new URLSearchParams(Object.entries(data)) : null,
