@@ -17,7 +17,7 @@ const request = async (method: string, url: string, data?: object, headers?: Hea
   }
 
   const resData: object = await response.json()
-  return resData;
+  return resData
 }
 
 const get = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => request('GET', url, data, headers)
