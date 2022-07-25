@@ -17,15 +17,14 @@ const detail:FC<iProps> = ({ favoriteProducts }) => {
 
     const { 'userInfoToken': token } = parseCookies(context)
     const res = await fetch(
-      
       process.env.NEXT_PUBLIC_API_URL + `/storeProducts/manageFavorite`, {
-        body: JSON.stringify({"productID":context.params!._id}),
-        method: 'post', 
+        body: JSON.stringify({ productID: context.params!._id }),
+        method: 'get',
         headers: new Headers({ 'Authorization': `Bearer ${token}` }),
-      }  
+      }
     );
     const favoriteProducts = await res.json() as FavoriteProducts;
-  
+
     return {
       props: {
         favoriteProducts: favoriteProducts,
