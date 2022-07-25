@@ -1,6 +1,5 @@
 import { FC, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import LoginController from "../Screens/Login/LoginController";
 import UserInfoContext, {
   UserInfoContextType,
 } from "../Store/UserInfo/UserInfoContext";
@@ -26,8 +25,8 @@ const RoutesFunction = () => {
             token: userInfoLoaded.token,
             phone: userInfoLoaded.phone,
             name: userInfoLoaded.userId,
-            lat:"",
-            lon:""
+            lat: "",
+            lon: "",
           });
           hasToken = true;
         }

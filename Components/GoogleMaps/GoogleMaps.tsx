@@ -37,12 +37,7 @@ const GoogleMaps: FC<GoogleMapsInterface> = ({ markers, draggable, zoom, initial
     })
     currentMarkers = []
 
-
-    console.log("Loading Map");
-    markers.forEach((marker: GoogleMapsMarkerInterface) => {
-
-      console.log(marker);
-      
+    markers.forEach((marker: GoogleMapsMarkerInterface) => {      
       let gmMarker = new google.maps.Marker({
         position: { lat: marker.lat, lng: marker.lng },        
         title: marker.title,
@@ -80,11 +75,6 @@ const GoogleMaps: FC<GoogleMapsInterface> = ({ markers, draggable, zoom, initial
       onReady={onMapLoad}
       initialCenter={initialCenter}
       google={google}
-      onDragend={(e: IMapProps | undefined, map: google.maps.Map | undefined, event:any ) => {
-        console.log(" Teste EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe");
-        console.log(e);
-        
-      }}
     />
   );
 };

@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const ApiConn = axios.create({
-    baseURL: 'https://fiap-reactjs-presencial.herokuapp.com',
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
-
-
 
 export default ApiConn;

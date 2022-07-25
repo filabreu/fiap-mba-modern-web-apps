@@ -15,19 +15,14 @@ const detail:FC<iProps> = ({ productDetail }) => {
 export default detail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
-  console.log(context.req.cookies);
   const { 'userInfoToken': token } = parseCookies(context)
-  console.log(token);
   const res = await fetch(
-    process.env.REACT_APP_URL + `storeProducts/product/${context.params!.id}`, {
+    process.env.NEXT_PUBLIC_API_URL + `/storeProducts/product/${context.params!.id}`, {
       method: 'get', 
       headers: new Headers({ 'Authorization': `Bearer ${token}` }),
     }  
   );
   const productDetail = await res.json() as ProductDetail;
-  console.log("Checking items");
-  console.log(productDetail);
 
   return {
     props: {

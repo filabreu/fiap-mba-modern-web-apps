@@ -28,8 +28,6 @@ const DetailController: FC<iProps> = ({ productDetail }) => {
 
     infoSaved = localStorage.getItem("userInfoToken") as String | null;
     setAlignment(productDetail.product.favorite);
-    console.log(userCoordinates)
-    console.log("ALLOWWWWWWWWWW")
     if (infoSaved !== "" && infoSaved !== null) {
       let userInfoLoaded: UserInfo = JSON.parse(infoSaved + "") as UserInfo;
       if (userInfoLoaded.token !== "" && userInfoLoaded.token !== undefined) {
@@ -53,7 +51,6 @@ const DetailController: FC<iProps> = ({ productDetail }) => {
     event: React.MouseEvent<HTMLElement>,
     newAlignment: boolean
   ) => {
-    console.log("É " + newAlignment);
     setAlignment(newAlignment);
     axios
       .post(

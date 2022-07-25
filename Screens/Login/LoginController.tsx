@@ -27,8 +27,6 @@ const LoginController = () => {
     values: FormDataType,
     formikHelpers: FormikHelpers<FormDataType>
   ) => {
-    console.log(values);
-
     let infoSend = {
       email: values.email,
       password: values.password,
@@ -38,7 +36,6 @@ const LoginController = () => {
     authLoginAPI
       .requestPromise(infoSend)
       .then((info: any) => {
-        console.log(info);
         setIsLoading(false);
 
         context.makeLogin({

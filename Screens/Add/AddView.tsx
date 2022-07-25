@@ -47,7 +47,6 @@ const DetailView: FC<IProps> = ({
   // const infoJson = JSON.parse(info);
 
   let message: ReactElement<AlertProps> | null = null;
-  console.log(connectMessage);
   if (connectMessage !== "") {
     let severity: AlertColor = "success";
     if (connectCode !== 1) {

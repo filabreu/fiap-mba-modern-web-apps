@@ -49,7 +49,6 @@ const LoginView: FC<IProps> = ({
   let message: ReactElement<AlertProps> | undefined;
 
   if (connectMessage !== "") {
-    console.log("Ta aqui ou não")
     message = (
       <Alert severity="error" variant="filled">
         {" "}

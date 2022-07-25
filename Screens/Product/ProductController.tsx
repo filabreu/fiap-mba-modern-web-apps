@@ -38,7 +38,6 @@ const ProductController: FC<iProps> = ({ infob }) => {
     });
 
   if (isGeolocationAvailable && isGeolocationEnabled && coords) {
-    console.log(coords.latitude + " - " + coords.longitude);
     userCoordinates.current = coords;
   }
 
@@ -73,9 +72,6 @@ const ProductController: FC<iProps> = ({ infob }) => {
 
   const getData = (query: any): Promise<QueryResult<{ [x: string]: {} }>> => {
     return new Promise((resolve, reject) => {
-      
-      console.log(query);
-
       let page = query.page + 1;
       let info = `page=${page}&perPage=${query.pageSize}`;
       if (query.orderBy !== undefined && query.orderBy !== "") {
