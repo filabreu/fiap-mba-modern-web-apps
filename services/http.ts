@@ -1,18 +1,31 @@
-const request = async (method: string, url: string, data?: object, headers?: HeadersInit): Promise<object> => {
+const request = async (method: string, url: string, data?: URLSearchParams | null, headers?: HeadersInit): Promise<object> => {
+  let authHeaders = {}
+
+  if (typeof window !== undefined) {
+    const authToken = localStorage.getItem('token')
+
+    authHeaders = {
+      Authorization: `Bearer ${authToken}`
+    }
+  }
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`,
     {
       method: method,
-      body: data ? new URLSearchParams(Object.entries(data)) : null,
+      body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        ...headers
+        Accept: 'application/json',
+        ...headers,
+        ...authHeaders,
       }
     }
   )
 
   if (!response.ok) {
-    const errData: object = await response.json()
+    const isJson = response.headers.get('content-type')?.includes('application/json');
+    const errData: object = isJson ? await response.json() : { message: await response.text() }
     return Promise.reject({ status: response.status, error: errData })
   }
 
@@ -20,9 +33,17 @@ const request = async (method: string, url: string, data?: object, headers?: Hea
   return resData
 }
 
-const get = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => request('GET', url, data, headers)
-const post = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => request('POST', url, data, headers)
-const put = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => request('PUT', url, data, headers)
-const destroy = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => request('DELETE', url, data, headers)
+const get = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => (
+  request('GET', url + (data ? `/?${new URLSearchParams(Object.entries(data)).toString()}` : null), null, headers)
+)
+const post = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => (
+  request('POST', url, data ? new URLSearchParams(Object.entries(data)) : null, headers)
+)
+const put = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => (
+  request('PUT', url, data ? new URLSearchParams(Object.entries(data)) : null, headers)
+)
+const destroy = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => (
+  request('DELETE', url, null, headers)
+)
 
 export { get, post, put, destroy }

@@ -1,9 +1,24 @@
 import type { NextPage } from 'next'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import AuthGuard from '../hocs/AuthGuard'
+import getProducts, { GetProductsResponse } from '../services/products/getProducts'
 
 const Home: NextPage = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    getProducts({ page: currentPage, perPage: 5 })
+      .then((data: GetProductsResponse) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  })
+
   return (
     <AuthGuard>
       <Head>

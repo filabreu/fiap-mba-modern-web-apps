@@ -1,3 +1,4 @@
+import { NextPage } from 'next'
 import { FormEvent, useContext, useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -6,7 +7,7 @@ import UserContext from '../context/UserContext/UserContext'
 import login from '../services/auth/login'
 import Input from '../components/Input'
 
-const Login = () => {
+const Login: NextPage = () => {
   const router = useRouter()
   const { setErrorInfo } = useContext(ErrorContext)
   const { setUserInfo } = useContext(UserContext)
