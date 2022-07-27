@@ -32,11 +32,11 @@ const request = async (method: string, url: string, data?: URLSearchParams | nul
   if (!response.ok) {
     const isJson = response.headers.get('content-type')?.includes('application/json');
     const errData: object = isJson ? await response.json() : { message: await response.text() }
+
     return Promise.reject({ status: response.status, error: errData })
   }
 
-  const resData: object = await response.json()
-  return resData
+  return response.json()
 }
 
 const get = async (url: string, data?: object, headers?: HeadersInit): Promise<object> => (
