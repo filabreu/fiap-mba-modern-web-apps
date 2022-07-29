@@ -1,3 +1,5 @@
+import ErrorInfoType from "../types/ErrorInfo"
+
 const filterDataFields = (data: object) => (
   Object.keys(data)
     .filter((k): boolean => !!data[k as keyof object])
@@ -31,7 +33,11 @@ const request = async (method: string, url: string, data?: URLSearchParams | nul
 
   if (!response.ok) {
     const isJson = response.headers.get('content-type')?.includes('application/json');
-    const errData: object = isJson ? await response.json() : { message: await response.text() }
+    const errData: ErrorInfoType = isJson ? await response.json() : { message: await response.text() }
+
+    if (errData.message === 'jwt expired') {
+      localStorage.removeItem('token')
+    }
 
     return Promise.reject({ status: response.status, error: errData })
   }
