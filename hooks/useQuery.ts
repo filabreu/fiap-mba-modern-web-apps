@@ -1,24 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
-export type useQueryReturnType = {
-  data: any
-  error: string
-  loading: boolean
-  refetch: () => void
-}
+export type useQueryReturnType = [
+  (newParams?: object) => void,
+  {
+    data: any
+    error: string
+    loading: boolean
+  }
+]
 
-const useQuery = (httpRequest: Promise<object>): useQueryReturnType => {
+const useQuery = (request: (params: any) => Promise<object>, requestParams: object): useQueryReturnType => {
   const [data, setData] = useState<any>(null)
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
-  const [refetches, setRefetches] = useState<number>(0)
 
-  const refetch = () => {
-    setRefetches(refetches + 1)
-  }
-
-  useEffect(() => {
-    httpRequest
+  const query = useCallback((newParams?: object) => (
+    request({ ...requestParams, ...newParams })
       .then((response) => setData(response))
       .catch((err) => {
         if (err.error.message === 'jwt expired') {
@@ -28,14 +25,17 @@ const useQuery = (httpRequest: Promise<object>): useQueryReturnType => {
         setError(err)
       })
       .finally(() => setLoading(false))
-  }, [])
+  ), [request])
 
-  return {
-    data,
-    error,
-    loading,
-    refetch,
-  }
+  return (
+    [query,
+      {
+        data,
+        error,
+        loading,
+      }
+    ]
+  );
 }
 
 export default useQuery
