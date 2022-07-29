@@ -3,8 +3,8 @@ import { get } from '../http'
 import Product from '../../types/Product'
 
 export interface GetProductsQuery {
-  page: number
-  perPage: number
+  page: string
+  perPage: string
   orderBy?: string
   orderDirection?: string
   search?: string
@@ -20,7 +20,7 @@ export interface GetProductsResponse {
 const getProducts = async (
   {
     page,
-    perPage = 5,
+    perPage = '5',
     orderBy,
     orderDirection,
     search
