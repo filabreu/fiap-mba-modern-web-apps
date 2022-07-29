@@ -3,21 +3,23 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import withAuthGuard from '../hocs/withAuthGuard'
-import getProducts, { GetProductsResponse } from '../services/products/getProducts'
+import getProducts, { GetProductsResponse, GetProductsQuery } from '../services/products/getProducts'
+import Product from '../types/Product'
 
 const Home: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [products, setProducts] = useState([])
+  const [totalPages, setTotalPages] = useState(1)
+  const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
     getProducts({ page: currentPage, perPage: 5 })
       .then((data: GetProductsResponse) => {
-        console.log(data)
+        setProducts(data.products)
       })
       .catch((err) => {
         console.log(err)
       })
-  })
+  }, [currentPage])
 
   return (
     <>
