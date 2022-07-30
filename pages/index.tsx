@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 
 import withAuthGuard from '../hocs/withAuthGuard'
 import getProducts, { GetProductsResponse } from '../services/products/getProducts'
@@ -51,7 +52,7 @@ const Home: NextPage = () => {
               <div className="mt-4">
                 <p className="text-2xl text-center">$ {product.price}</p>
                 <div className="flex align-center justify-between">
-                  <span>detalhes</span>
+                  <Link href={`/products/${product._id}`}>detalhes</Link>
                   <span className="text-xl cursor-pointer">
                     {product.favorite ? '❤️' : '🤍'}
                   </span>
