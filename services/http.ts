@@ -51,7 +51,7 @@ const get = async (url: string, data?: object, headers?: HeadersInit): Promise<o
     url + (
       data
         ? `/?${new URLSearchParams(Object.entries(filterDataFields(data))).toString()}`
-        : null
+        : ''
     ),
     null,
     headers
