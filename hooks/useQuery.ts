@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export type useQueryReturnType = [
   (newParams?: object) => void,
@@ -9,23 +9,19 @@ export type useQueryReturnType = [
   }
 ]
 
-const useQuery = (request: (params: any) => Promise<object>, requestParams: object): useQueryReturnType => {
-  const [data, setData] = useState<any>(null)
+const useQuery = (request: (params: any) => Promise<object>): useQueryReturnType => {
+  const [data, setData] = useState<any>()
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const query = useCallback((newParams?: object) => (
-    request({ ...requestParams, ...newParams })
-      .then((response) => setData(response))
-      .catch((err) => {
-        if (err.error.message === 'jwt expired') {
-          localStorage.removeItem('token')
-        }
+  const query = useCallback((requestParams?: object) => {
+    setLoading(true)
 
-        setError(err)
-      })
+    request({ ...requestParams })
+      .then((response) => setData(response))
+      .catch((err) => setError(err))
       .finally(() => setLoading(false))
-  ), [request])
+  }, [request])
 
   return (
     [query,
