@@ -1,25 +1,33 @@
 import { useCallback, useState } from 'react'
 
+import ErrorType from '../types/Error'
+
 export type useQueryReturnType = [
-  (newParams?: object) => void,
+  (newParams?: object) => Promise<object>,
   {
-    data: any
-    error: string
+    data: object | undefined
+    error: ErrorType | undefined
     loading: boolean
   }
 ]
 
 const useQuery = (request: (params: any) => Promise<object>): useQueryReturnType => {
-  const [data, setData] = useState<any>()
-  const [error, setError] = useState<string>("")
+  const [data, setData] = useState<object | undefined>()
+  const [error, setError] = useState<ErrorType | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
 
   const query = useCallback((requestParams?: object) => {
     setLoading(true)
 
-    request({ ...requestParams })
-      .then((response) => setData(response))
-      .catch((err) => setError(err))
+    return request({ ...requestParams })
+      .then((response) => {
+        setData(response)
+        return response
+      })
+      .catch((err: ErrorType) => {
+        setError(err)
+        throw err
+      })
       .finally(() => setLoading(false))
   }, [request])
 

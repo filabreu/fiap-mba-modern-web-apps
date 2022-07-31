@@ -1,4 +1,5 @@
 import ErrorInfoType from "../types/ErrorInfo"
+import ErrorType from "../types/Error"
 
 const filterDataFields = (data: object) => (
   Object.keys(data)
@@ -39,7 +40,7 @@ const request = async (method: string, url: string, data?: URLSearchParams | nul
       localStorage.removeItem('token')
     }
 
-    return Promise.reject({ status: response.status, error: errData })
+    return Promise.reject({ status: response.status, error: errData } as ErrorType)
   }
 
   return response.json()
