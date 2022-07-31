@@ -6,6 +6,7 @@ import Head from 'next/head'
 import withAuthGuard from '../../hocs/withAuthGuard'
 import getProduct, { GetProductResponse } from '../../services/products/getProduct'
 import useQuery from '../../hooks/useQuery'
+import Favorite from '../../components/Favorite'
 
 const Product: NextPage = () => {
   const router = useRouter()
@@ -45,9 +46,7 @@ const Product: NextPage = () => {
                 <div className="mt-4">
                   <p className="text-2xl text-center">Preço: $ {product.price}</p>
                   <div className="mt-8 text-center">
-                    <span className="text-xl cursor-pointer">
-                      {product.favorite ? '❤️' : '🤍'}
-                    </span>
+                    <Favorite productID={product._id} favorited={product.favorite} />
                   </div>
                 </div>
               </div>

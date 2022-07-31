@@ -6,6 +6,7 @@ import Link from 'next/link'
 import withAuthGuard from '../hocs/withAuthGuard'
 import getProducts, { GetProductsResponse } from '../services/products/getProducts'
 import useQuery from '../hooks/useQuery'
+import Favorite from '../components/Favorite'
 
 const Home: NextPage = () => {
   const [currentPage, setCurrentPage] = useState<string>('1')
@@ -54,7 +55,7 @@ const Home: NextPage = () => {
                 <div className="flex align-center justify-between">
                   <Link href={`/products/${product._id}`}>detalhes</Link>
                   <span className="text-xl cursor-pointer">
-                    {product.favorite ? '❤️' : '🤍'}
+                    <Favorite productID={product._id} favorited={product.favorite} />
                   </span>
                 </div>
               </div>
