@@ -3,28 +3,22 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import withAuthGuard from '../hocs/withAuthGuard'
-import getProducts, { GetProductsResponse } from '../services/products/getProducts'
-import useQuery from '../hooks/useQuery'
-import Favorite from '../components/Favorite'
+import withAuthGuard from '../../hocs/withAuthGuard'
+import getFavoriteProducts, { GetFavoriteProductsResponse } from '../../services/products/getFavoriteProducts'
+import useQuery from '../../hooks/useQuery'
+import Favorite from '../../components/Favorite'
 
 const Home: NextPage = () => {
   const [currentPage, setCurrentPage] = useState<string>('1')
   const [totalPages, setTotalPages] = useState<number | undefined>()
 
-  const [productsQuery, { data = {}, loading, error }] = useQuery(getProducts)
+  const [favoritesQuery, { data = {}, loading, error }] = useQuery(getFavoriteProducts)
 
-  const { products, totalItems } = data as GetProductsResponse;
-
-  useEffect(() => {
-    productsQuery({ page: currentPage, perPage: '4' })
-  }, [productsQuery, currentPage])
+  const { products } = data as GetFavoriteProductsResponse;
 
   useEffect(() => {
-    if (totalItems) {
-      setTotalPages(totalItems / 4)
-    }
-  }, [totalItems])
+    favoritesQuery()
+  }, [favoritesQuery])
 
   if (error) {
     return <></>
@@ -33,11 +27,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Produtos</title>
+        <title>Favoritos</title>
         <meta name="description" content="FIAP MBA - Produtos" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h3 className="pt-12 text-3xl text-center font-bold">Produtos</h3>
+      <h3 className="pt-12 text-3xl text-center font-bold">Favoritos</h3>
       {loading ? (
         <div className="mt-8 text-2xl text-center font-bold">
           Carregando...
@@ -57,7 +51,7 @@ const Home: NextPage = () => {
                 <div className="flex align-center justify-between">
                   <Link href={`/products/${product._id}`}>detalhes</Link>
                   <span className="text-xl cursor-pointer">
-                    <Favorite productID={product._id} favorited={Boolean(product.favorite)} />
+                    <Favorite productID={product._id} favorited={true} />
                   </span>
                 </div>
               </div>
@@ -65,17 +59,6 @@ const Home: NextPage = () => {
           ))}
         </div>
       )}
-      <div className="mt-8 text-center">
-        {totalPages && Array.from({ length: totalPages }).map((_, page) => (
-          <span
-            className={`mx-4 text-xl cursor-pointer ${currentPage === (page + 1).toString() && 'font-bold'}`}
-            key={`pagination_${page + 1}`}
-            onClick={() => setCurrentPage((page + 1).toString())}
-          >
-            {page + 1}
-          </span>
-        ))}
-      </div>
     </>
   )
 }

@@ -46,7 +46,7 @@ const Product: NextPage = () => {
                 <div className="mt-4">
                   <p className="text-2xl text-center">Preço: $ {product.price}</p>
                   <div className="mt-8 text-center">
-                    <Favorite productID={product._id} favorited={product.favorite} />
+                    <Favorite productID={product._id} favorited={Boolean(product.favorite)} />
                   </div>
                 </div>
               </div>
